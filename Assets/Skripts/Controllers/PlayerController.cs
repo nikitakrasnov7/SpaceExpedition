@@ -1,14 +1,16 @@
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public int Formard;
-    public int Left;
-    public int Up;
-    public int Rotate;
+    public Slider Oxygen;
+    public Slider Fuel;
 
+    public float o2;
+    public bool isOxygen = false;
+    public int i = 0;
 
     private static PlayerController instance;
     public static PlayerController Instance
@@ -23,18 +25,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartOxygenDecrease()
     {
-        ResetVector();
+        StartCoroutine(OxygenDecrease());
     }
 
-    private void ResetVector()
+
+
+
+    public IEnumerator OxygenDecrease()
     {
-        Formard = 0;
-        Left = 0;
-        Up = 0;
-        Rotate = 0;
+        while (isOxygen)
+        {
+            PlayerDataSO.Oxygen -= 0.01f * i;
+            o2 = PlayerDataSO.Oxygen;
+
+            Oxygen.value = PlayerDataSO.Oxygen / 120;
+            yield return new WaitForSeconds(2f);
+        }
+
     }
+
+    public void AddI()
+    {
+        if(i == 0)
+        {
+            i = 1;
+        }
+        else if(i == 1)
+        {
+            i = 2;
+        }
+    }
+    public void DicrI()
+    {
+        if(i == 1)
+        {
+            i = 0;
+        }
+        else if(i == 2)
+        {
+            i = 1;
+        }
+    }
+
+
 
 
 }

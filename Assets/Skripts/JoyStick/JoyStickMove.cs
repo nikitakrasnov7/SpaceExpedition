@@ -24,6 +24,9 @@ public class JoyStickMove : MonoBehaviour
             {
                 gameObject.transform.position = touch.position;
                 gameObject.transform.position = startPosition + Vector3.ClampMagnitude(transform.position - startPosition, 250f);
+
+                PlayerController.Instance.isOxygen = true;
+
             }
 
         }
@@ -31,6 +34,7 @@ public class JoyStickMove : MonoBehaviour
     }
     public void ExitMove()
     {
+        PlayerController.Instance.isOxygen = false;
         gameObject.transform.position = startPosition;
     }
 
